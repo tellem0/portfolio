@@ -113,7 +113,15 @@
   }
 
   function start() {
-    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      console.error('[Music] AudioContext failed to create:', e);
+      btn.textContent = '▶ Music';
+      return;
+    }
+    // Resume in case browser created it in suspended state (autoplay policy)
+    if (ctx.state === 'suspended') ctx.resume();
     playLoop(ctx, melody, 'square', 0.12, 0);
     playLoop(ctx, bass,   'triangle', 0.08, 0);
     playDrum(ctx);

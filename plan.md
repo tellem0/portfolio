@@ -92,7 +92,7 @@ Content shown when the runner reaches Stage 4 (Contact sign), and also as a plai
 | LinkedIn          | https://www.linkedin.com/in/lionel-sichom/        |
 | AWS Builder Center| https://community.aws/@tellem  (@tellem)          |
 | YouTube           | https://www.youtube.com/@LionelTellem             |
-| GitHub            | **Omitted** (not included in this version)        |
+| GitHub            | https://github.com/tellem0  (@tellem0)            |
 
 **Public-safety rule:** no account IDs, ARNs, access keys, email addresses, or usernames visible anywhere on the site.
 
@@ -155,6 +155,7 @@ Located below the canvas. Layout: `[D-pad] [LT.EXE label] [action buttons]`
 - Original chiptune loop generated in the browser via **Web Audio API** (no audio files, no Nintendo assets)
 - Three voices: square-wave melody, triangle-wave bass, square-wave percussion
 - **OFF by default** — browser autoplay policy prevents autoplay
+- `AudioContext` creation wrapped in `try/catch`; calls `ctx.resume()` to handle browsers that create it in suspended state
 - Play / Mute button in the navbar and on the gamepad
 - Hint text above canvas blinks to prompt interaction
 
@@ -174,7 +175,7 @@ Located below the canvas. Layout: `[D-pad] [LT.EXE label] [action buttons]`
 2. **Hero** — name, tagline, joke, START GAME button, drifting clouds
 3. **Skills** — two-column unlocked / in-progress grid (always visible)
 4. **Game World** — canvas + gamepad + stage cards
-5. **Contact** — plain link section (LinkedIn, AWS Builder Center, YouTube)
+5. **Contact** — plain link section (LinkedIn, AWS Builder Center, YouTube, GitHub)
 6. **Footer** — name, tagline, build note
 
 ---
@@ -188,7 +189,7 @@ Located below the canvas. Layout: `[D-pad] [LT.EXE label] [action buttons]`
 | 3 | CLI profiles, keys never in the repository | Done |
 | 4 | Budget alerts as a cost guardrail | Done |
 | 5 | No admin access for a coding agent | Done |
-| 6 | **Content Security Policy** in the HTML `<meta>` tag | ✅ Built into index.html |
+| 6 | **Content Security Policy** — `media-src 'self' blob:`, `worker-src blob:`, `connect-src 'self'` in both HTML meta tag and `_headers` file | ✅ Built into index.html + _headers |
 | 7 | GitHub access limited to one repository | Planned (until deployed) |
 
 **Note:** The Security Receipts section (originally planned as a visible page section) was removed from the site. Controls are tracked here in the plan only.
@@ -203,6 +204,7 @@ Located below the canvas. Layout: `[D-pad] [LT.EXE label] [action buttons]`
 | `styles.css` | All styling — themes, layout, gamepad, canvas, responsive |
 | `script.js` | Theme toggle, Web Audio chiptune, game loop, runner, coins |
 | `marathon.jpg` | **You must place this file here** — marathon race photo |
+| `_headers` | Amplify HTTP response headers — CSP sent as a real header (overrides meta tag) |
 | `plan.md` | This file |
 
 **Stack:** plain HTML5 · CSS3 · ES6 JavaScript — no frameworks, no build step, no backend, no npm.
@@ -214,10 +216,10 @@ Located below the canvas. Layout: `[D-pad] [LT.EXE label] [action buttons]`
 | Decision | Reason |
 |----------|--------|
 | Security Receipts section removed | Requested by user |
-| GitHub link omitted | Requested by user ("leave it out for now") |
 | No email address on site | Public-safety rule — avoids spam |
 | Mario sprites not used | Nintendo copyright — original pixel art drawn instead |
 | Music off by default | Browser autoplay policy; user must click to start |
+| Music silent on Amplify (HTTPS) — fixed | CSP `connect-src 'none'` blocked Web Audio API on Chromium; `media-src` was missing; `_headers` file added so Amplify sends CSP as HTTP header |
 | `WORLD_W = 1400` (was 3200) | Stages felt too far apart — reduced on user request |
 | Canvas height `clamp(220px, 40vw, 380px)` | User requested larger game window, responsive on all devices |
 | Gamepad D-pad: explicit 3×3 grid | Previous layout had buttons misaligned — rebuilt from scratch |
