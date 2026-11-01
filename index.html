@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lionel Sichom — Cloud Security Student</title>
+  <meta name="description" content="Portfolio of Lionel Tellem, cybersecurity student in France heading toward cloud security." />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; frame-src 'none'; object-src 'none';" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+
+  <!-- ═══════════════════════════ NAVBAR ═══════════════════════════ -->
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <span class="nav-logo" aria-hidden="true">LT.EXE</span>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#game-world">World</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-controls">
+      <button id="music-btn" class="btn-pixel" aria-label="Play music" title="Play / Mute chiptune music">▶ Music</button>
+      <button id="theme-btn" class="btn-pixel" aria-label="Toggle colour theme" title="Cycle theme: dark → light → neon">🎨 Theme</button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════ HERO ════════════════════════════ -->
+  <header id="hero" class="hero" aria-label="Hero section">
+    <div class="hero-scanlines" aria-hidden="true"></div>
+    <div class="hero-content">
+      <p class="hero-tag pixel-blink" aria-hidden="true">PLAYER 1 READY</p>
+      <h1 class="hero-title">Lionel<br/>Sichom</h1>
+      <p class="hero-sub">Cybersecurity student · France<br/>Heading toward cloud security ☁️🔒</p>
+      <p class="hero-joke">Currently 0% compromised.<br/>Monitoring in progress. 🛡️</p>
+      <a href="#game-world" class="btn-pixel btn-start">▶ START GAME</a>
+    </div>
+    <!-- pixel clouds decoration -->
+    <div class="cloud cloud-1" aria-hidden="true"></div>
+    <div class="cloud cloud-2" aria-hidden="true"></div>
+    <div class="cloud cloud-3" aria-hidden="true"></div>
+  </header>
+
+  <!-- ═══════════════════════════ SKILLS (plain section) ══════════ -->
+  <section id="skills" class="section skills-section" aria-label="Skills">
+    <h2 class="section-title">// SKILLS.JSON</h2>
+    <div class="skills-grid">
+      <div class="skill-col">
+        <h3 class="skill-col-title">✅ Unlocked</h3>
+        <ul class="skill-list">
+          <li>Security Fundamentals <span class="badge">ISC2 CC</span></li>
+          <li>AWS IAM Basics</li>
+          <li>AWS CLI</li>
+          <li>MFA &amp; Account Hygiene</li>
+          <li>Budgets &amp; Cost Control</li>
+        </ul>
+      </div>
+      <div class="skill-col">
+        <h3 class="skill-col-title">🔄 In Progress</h3>
+        <ul class="skill-list">
+          <li>AWS Networking (VPC)</li>
+          <li>Amazon S3</li>
+          <li>Amazon EC2</li>
+          <li>CloudFormation</li>
+          <li>Cloud Security Services</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════ GAME WORLD ══════════════════════ -->
+  <section id="game-world" class="game-world-section" aria-label="Interactive game world">
+    <div class="game-hint pixel-blink" role="status" aria-live="polite">
+      ← Use arrow keys, A/D, or the buttons below to run →
+    </div>
+
+    <!-- Canvas where the game is drawn -->
+    <canvas id="game-canvas" aria-label="Retro side-scrolling world. Use arrow keys or on-screen buttons to move." tabindex="0"></canvas>
+
+    <!-- Gamepad controller -->
+    <div class="gamepad" aria-label="Game controller">
+
+      <!-- Left side: D-pad (3×3 grid: only left/right on middle row) -->
+      <div class="gamepad-side gamepad-left" aria-label="D-pad">
+        <div class="dpad">
+          <div class="dpad-spacer"></div><div class="dpad-spacer"></div><div class="dpad-spacer"></div>
+          <button class="dpad-btn dpad-btn-left"  id="btn-left"  aria-label="Move left"  title="Move left">◀</button>
+          <div class="dpad-nub"></div>
+          <button class="dpad-btn dpad-btn-right" id="btn-right" aria-label="Move right" title="Move right">▶</button>
+          <div class="dpad-spacer"></div><div class="dpad-spacer"></div><div class="dpad-spacer"></div>
+        </div>
+      </div>
+
+      <!-- Center: pad body label -->
+      <div class="gamepad-center" aria-hidden="true">
+        <span class="pad-label">LT.EXE</span>
+        <span class="pad-sublabel">v1.0</span>
+      </div>
+
+      <!-- Right side: action buttons (music top-left, theme top-right) -->
+      <div class="gamepad-side gamepad-right" aria-label="Action buttons">
+        <div class="action-btns">
+          <button class="action-btn btn-music" id="pad-music-btn" aria-label="Play music" title="Play / Mute music">♪</button>
+          <button class="action-btn btn-theme" id="pad-theme-btn" aria-label="Change theme" title="Cycle theme">🎨</button>
+        </div>
+      </div>
+
+    </div><!-- /.gamepad -->
+
+    <!-- Stage cards (shown when runner reaches a stage) -->
+    <div id="stage-cards" aria-live="polite">
+
+      <article class="stage-card" id="card-about" hidden aria-label="About me">
+        <button class="card-close" aria-label="Close">✕</button>
+        <h2>👋 About Me</h2>
+        <p>Cybersecurity student based in France. I hold the <strong>ISC2 Certified in Cybersecurity (CC)</strong>.</p>
+        <p>I'm learning AWS architecture first (Solutions Architect path), then specialising in cloud security. I discover AWS services each day in my learning journey.</p>
+        <p>I applied to be an <strong>AWS Student Builder Group Leader</strong> (wish me luck! 🤞).</p>
+        <p class="mission-box">🎯 Mission: Bridging the gap by helping my classmates and the French community better understand AWS services — especially through analogies.</p>
+      </article>
+
+      <article class="stage-card" id="card-projects" hidden aria-label="Projects">
+        <button class="card-close" aria-label="Close">✕</button>
+        <h2>🚀 Projects</h2>
+        <ol class="project-list">
+          <li>
+            <strong>Raspberry Jam — Cameroon</strong><br/>
+            Hosted a Raspberry Pi learning community and organised a Raspberry Jam.<br/>
+            <a href="https://www.raspberrypi.org/blog/raspberry-jam-cameroon-piparty/" target="_blank" rel="noopener noreferrer">Read on raspberrypi.org ↗</a>
+          </li>
+          <li>
+            <strong>Arduino DIY YouTube Channel</strong><br/>
+            Hands-on electronics projects — because sharing gives more impact.<br/>
+            <a href="https://www.youtube.com/playlist?list=PLLSsxX-xgRiOwkEvbtWkvHBzxq0xN0a1U" target="_blank" rel="noopener noreferrer">Watch the playlist ↗</a>
+          </li>
+          <li>
+            <strong>Certification Roadmap</strong><br/>
+            CLF-C02 (Dec 2026) → SAA-C03 (early 2027) → AWS Security Specialty
+          </li>
+        </ol>
+      </article>
+
+      <article class="stage-card" id="card-fun" hidden aria-label="Fun fact — the finish line">
+        <button class="card-close" aria-label="Close">✕</button>
+        <h2>🏃 Fun Fact</h2>
+        <p>When I'm not doing AWS, I'm a runner. I have run a <strong>marathon</strong>, which puts me in the top 0.01% of people on the planet who have ever run one <em>(that's the joke — don't @ me for a source)</em>.</p>
+        <p>Planning two more marathons next year. Wish me luck! 🏃</p>
+        <p>My favourite cartoon: <strong>The Simpsons</strong> 🍩</p>
+        <div class="marathon-photo-wrap">
+          <img src="marathon.jpg" alt="Lionel running during a marathon, wearing bib number 809, with a mural reading 'Droit au but' (Straight to the goal) in the background." class="marathon-photo" loading="lazy" />
+        </div>
+      </article>
+
+      <article class="stage-card" id="card-contact" hidden aria-label="Contact me">
+        <button class="card-close" aria-label="Close">✕</button>
+        <h2>📡 Contact</h2>
+        <ul class="contact-list">
+          <li>
+            <a href="https://www.linkedin.com/in/lionel-sichom/" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon">🔗</span> LinkedIn
+            </a>
+          </li>
+          <li>
+            <a href="https://community.aws/@tellem" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon">☁️</span> AWS Builder Center (@tellem)
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@LionelTellem" target="_blank" rel="noopener noreferrer">
+              <span class="contact-icon">▶</span> YouTube (@LionelTellem)
+            </a>
+          </li>
+        </ul>
+      </article>
+
+    </div><!-- /#stage-cards -->
+  </section>
+
+  <!-- ═══════════════════════════ CONTACT (plain section) ═════════ -->
+  <section id="contact" class="section contact-section" aria-label="Contact section">
+    <h2 class="section-title">// CONTACT.EXE</h2>
+    <ul class="contact-list contact-list-plain">
+      <li>
+        <a href="https://www.linkedin.com/in/lionel-sichom/" target="_blank" rel="noopener noreferrer">🔗 LinkedIn</a>
+      </li>
+      <li>
+        <a href="https://community.aws/@tellem" target="_blank" rel="noopener noreferrer">☁️ AWS Builder Center</a>
+      </li>
+      <li>
+        <a href="https://www.youtube.com/@LionelTellem" target="_blank" rel="noopener noreferrer">▶ YouTube</a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ═══════════════════════════ FOOTER ══════════════════════════ -->
+  <footer class="footer" aria-label="Footer">
+    <p>Lionel Tellem · Cybersecurity Student · France</p>
+    <p class="footer-small">Built with plain HTML, CSS &amp; JS — no frameworks harmed 🛡️</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
