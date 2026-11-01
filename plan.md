@@ -79,7 +79,7 @@ Content shown when the runner reaches Stage 3 (Finish Line):
 - Runner hobby: completed a marathon — "top 0.01% of people who have ever run one" *(stated clearly as a joke, not a real stat)*
 - Planning two more marathons next year
 - Favourite cartoon: The Simpsons 🍩
-- **Photo:** `marathon.jpg` — Lionel running during a race, bib #809, mural "Droit au but" in the background. File must be placed in the same folder as `index.html`. EXIF data should be removed before deploying.
+- **Photo:** `marathon.jpg` — Lionel running during a race, bib #809, File must be placed in the same folder as `index.html`. EXIF data should be removed before deploying.
 
 ---
 
